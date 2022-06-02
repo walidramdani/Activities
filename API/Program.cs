@@ -1,3 +1,6 @@
+using Application.Activities;
+using Application.Core;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Persistence;
@@ -19,8 +22,10 @@ opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 //         policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
 //     });
 // });
+builder.Services.AddMediatR(typeof(List.Handler).Assembly); // configuring Mediator to use
+builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 var app = builder.Build();  
-
+ 
 //This code create auotomaticly Database if is dont exist
 using var scope = app.Services.CreateScope();
 var services =scope.ServiceProvider;
