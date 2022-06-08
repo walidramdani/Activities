@@ -15,13 +15,14 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(opt =>{
 opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-// builder.Services.AddCors(opt =>
-// {
-//     opt.AddPolicy("CorsPolicy",policy =>
-//     {
-//         policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
-//     });
-// });
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("CorsPolicy",policy =>
+    {
+        policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
+
+    });
+});
 builder.Services.AddMediatR(typeof(List.Handler).Assembly); // configuring Mediator to use
 builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 var app = builder.Build();  
@@ -50,7 +51,7 @@ if (app.Environment.IsDevelopment())
 
 // app.UseHttpsRedirection();
 
-// app.UseCors("CorsPolicy");
+app.UseCors("CorsPolicy");
 
 app.UseAuthorization();
 

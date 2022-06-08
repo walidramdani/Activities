@@ -14,7 +14,6 @@ namespace Application.Activities
             public Handler(DataContext context)
             { 
                 this.context = context;
-
             }
             public async Task<List<Activity>> Handle(Query request, CancellationToken cancellationToken)
             {
